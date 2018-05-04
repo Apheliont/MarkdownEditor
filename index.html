@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Markdown Notebook</title>
+    <link rel="stylesheet" href="./css/animate.css">
+    <link rel="stylesheet" href="./css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="./js/materialize.min.js"></script>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+<div id="app" class="wrapper">
+    <aside class="menu">
+        <div class="section">
+            <button :title="sortedNotes.length + ' записей создано'" class="waves-effect waves-light btn"
+                    @click="addNote"><i class="material-icons left">add</i>Добавить
+                запись
+            </button>
+        </div>
+        <transition-group
+                class="collection notes"
+                enter-active-class="flipInX animated"
+                leave-active-class="flipOutX animated"
+                tag="ul"
+                name="notes"
+        >
+            <li v-for="note in sortedNotes"
+                class="collection-item note-item waves-effect waves-light z-depth-1"
+                :class="{activeNote : selectedNote == note}"
+                :key="note.created"
+                :title="note.title"
+                @click="selectNote(note.id)"
+                @dblclick="changeTitle(note.id, $event)"
+            >
+                <div class="note-item__note-title truncate">{{note.title}}</div>
+                <div class="note-item__button-group">
+                    <button class="waves-effect waves-light teal lighten-2 btn-flat note-item__btn"
+                            @click.stop="toggleFavorite(note.id)">
+                        <i class="material-icons">{{note.favorite ? 'star' : 'star_border'}}</i>
+                    </button>
+                    <button class="waves-effect waves-light red btn-flat note-item__btn"
+                            @click.stop="deleteNote(note.id)">
+                        <i class="material-icons">delete</i>
+                    </button>
+                </div>
+            </li>
+        </transition-group>
+    </aside>
+    <template v-if="selectedNote">
+        <div class="main">
+            <main class="editor">
+                <div class="input-field">
+                    <i class="material-icons prefix">mode_edit</i>
+                    <label class="active" for="textinput">Введите Markdown текст: </label>
+                    <textarea name="textinput" class="materialize-textarea" id="textinput" cols="30"
+                              v-model="content"></textarea>
+                </div>
+            </main>
+            <aside class="showcase">
+                <p v-html="htmlOutput"></p>
+            </aside>
+            <footer class="editor__footer">
+                <strong>Создан: </strong>{{selectedNote.created | date}}, <strong>Строк: </strong> {{lineCount}},
+                <strong>Слов: </strong>{{wordCount}}, <strong>Символов: </strong>{{charCount}}
+            </footer>
+        </div>
+    </template>
+</div>
+<script src="./js/moment-with-locales.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+<script src="https://unpkg.com/marked"></script>
+<script src="./js/script.js"></script>
+</body>
+</html>

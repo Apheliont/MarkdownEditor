@@ -1,0 +1,130 @@
+body {
+    overflow: hidden;
+}
+
+.wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: stretch;
+    height: 100vh;
+}
+
+.menu {
+    background-color: #eeeeee;
+    padding: 20px 10px;
+    width: 18%;
+}
+
+.main {
+    width: 82%;
+    display: grid;
+    justify-items: stretch;
+    justify-content: stretch;
+    grid-template-areas:
+    "editor showcase"
+    "footer footer";
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto 30px;
+    padding-top: 20px;
+}
+
+.editor {
+    grid-area: editor;
+    display: flex;
+    flex-flow: column nowrap;
+    border-right: 2px solid #EEEEEE;
+    min-width: 35%;
+    justify-content: space-between;
+    padding: 20px;
+    overflow-y: scroll;
+}
+
+.input-field {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.editor__footer {
+    grid-area: footer;
+    padding: 5px 20px 5px 65px;
+    background-color: #dadada;
+}
+
+.showcase {
+    grid-area: showcase;
+    padding: 20px;
+    padding-top: 30px;
+    min-width: 48%;
+    overflow-y: scroll;
+}
+
+.note-item {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0 0 20px !important;
+    margin-bottom: 5px !important;
+}
+
+.notes {
+    border: none;
+    height: 90%;
+    overflow-y: scroll;
+}
+
+.notes::-webkit-scrollbar,
+.editor::-webkit-scrollbar,
+.showcase::-webkit-scrollbar {
+    width: 6px;
+    background-color: transparent;
+    border-radius: 5px;
+}
+
+.notes::-webkit-scrollbar-thumb,
+.editor::-webkit-scrollbar-thumb,
+.showcase::-webkit-scrollbar-thumb {
+    background-color: #8c8c8c;
+    border-radius: 5px;
+}
+
+.notes-move {
+    transition: transform 0.6s;
+}
+
+.notes-leave-active {
+    position: absolute;
+}
+
+.notes-leave-to {
+    opacity: 0;
+    transform: translateY(-30px);
+}
+
+.note-item__note-title {
+    width: 55%;
+}
+
+.note-item__title-editor {
+    width: 50%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.note-item__button-group {
+    padding: 0;
+    width: 45%;
+}
+
+.note-item__btn {
+    border: none;
+    float: right;
+    color: white !important;
+}
+
+.activeNote {
+    background: linear-gradient(to left, rgba(221, 217, 11, 0.46) 20%, orange) !important;
+}
+
+
